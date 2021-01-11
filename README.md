@@ -1,5 +1,7 @@
 # alembic
-A genome assembly finishing tool
+<b><h2>A genome assembly finishing tool</h2></b>
+<p>
+Alembic is a genome finishing tool used to make additional joins and calculate gaps and overlaps based on one or more reference genomes simultaneously. It uses an iterative pairing approach which does not assume that related species have identical sequence structure.  
 
 <b>Getting Started:</b>
 
