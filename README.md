@@ -16,6 +16,9 @@ calculate_gap_lengths.pl
 
 <b>Dependencies:</b>
 
+Trimmomatic:
+https://github.com/timflutre/trimmomatic
+
 BBmap suite:
 https://jgi.doe.gov/data-and-tools/bbtools/bb-tools-user-guide/bbmap-guide/
 
