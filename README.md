@@ -1,7 +1,7 @@
 # alembic
 A genome assembly finishing tool
 
-Getting Started
+<b><h2>Getting Started:<h2><b>
 
 #determine order and orientation of preassembly contigs based on one or more reference genomes. <p>
 calculate_joins.pl
@@ -11,7 +11,7 @@ calculate_joins.pl
 calculate_gap_lengths.pl
 
 
-Dependencies:
+<b><h2>Dependencies:<h2><b>
 
 BBmap suite:
 https://jgi.doe.gov/data-and-tools/bbtools/bb-tools-user-guide/bbmap-guide/
