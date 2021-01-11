@@ -3,11 +3,11 @@ A genome assembly finishing tool
 
 Getting Started
 
-#determine order and orientation of preassembly contigs based on one or more reference genomes.
+#determine order and orientation of preassembly contigs based on one or more reference genomes. <p>
 calculate_joins.pl
 
 
-#calculate gap lengths and overlaps based on one or more reference genomes
+#calculate gap lengths and overlaps based on one or more reference genomes. <p>
 calculate_gap_lengths.pl
 
 
