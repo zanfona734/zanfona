@@ -16,11 +16,11 @@ calculate_gap_lengths.pl
 
 <b>Dependencies:</b>
 
-Trimmomatic:
+Trimmomatic:<br>
 https://github.com/timflutre/trimmomatic
 
-BBmap suite:
+BBmap suite:<br>
 https://jgi.doe.gov/data-and-tools/bbtools/bb-tools-user-guide/bbmap-guide/
 
-Blast suite:
+Blast suite:<br>
 https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=Download
