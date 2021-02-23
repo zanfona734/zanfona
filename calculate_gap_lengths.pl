@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# gaplength - contig distance calculator
+# Alembic - calculate_gap_length - contig distance calculator
 # v. 1.0
 #
 # version history
@@ -7,12 +7,38 @@
 #
 # The program takes input from STDIN
 # and outputs results on STDOUT.
+#
+# Copyright 2020 IRIDIAN GENOMES INC
+#
+# Permission is hereby granted, free of 
+# charge, to any person obtaining a copy 
+# of this software and associated documentation 
+# files (the "Software"), to deal in the 
+# Software without restriction, including 
+# without limitation the rights to use, copy, 
+# modify, merge, publish, distribute, sublicense, 
+# and/or sell copies of the Software, and to permit 
+# persons to whom the Software is furnished to 
+# do so, subject to the following conditions:
+#
+# The above copyright notice and this permission 
+# notice shall be included in all copies or 
+# substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT 
+# WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+# INCLUDING BUT NOT LIMITED TO THE WARRANTIES 
+# OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
+# PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL 
+# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR 
+# ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER 
+# IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+# ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
+# SOFTWARE.
 
 # pragmas
 use strict;
-
-# modules
-use List::MoreUtils qw(uniq);
 
 ##### MAIN BEGIN
 
@@ -44,7 +70,7 @@ chomp(@file_data = <>);
 
 # Get list of queries from file data (first column).
 @query_lines = map { (split(/,/, $_))[QUERY_ID] } @file_data;
-@queries = uniq @query_lines;
+@queries = uniq(\@query_lines);
 
 # Print output header.
 @header_array = ("query","first_contig","first_contig_orientation","second_contig","second_contig_orientation","gap_size");
@@ -85,7 +111,7 @@ sub doQuery {
 	
 	# Get list of contigs in this query.
 	my @contig_lines = map { (split(/,/, $_))[CONTIG_ID] } @query_lines;
-	my @contigs = uniq @contig_lines;
+	my @contigs = uniq(\@contig_lines);
 	
 	# Only process if there are exactly two contigs.
 	# (max index of @contigs is 1)
@@ -147,3 +173,24 @@ sub getContigData {
 	# Return data.
 	return $column_value;
 }
+
+# uniq - returns a list of unique array elements
+sub uniq {
+	my @arr = @{$_[0]};
+	my %count;
+	my @res;
+	
+	# Add element to result list exactly once.
+	foreach my $elem (@arr) {
+		# Keep count of times this element has appeared.
+		$count{$elem} = $count{$elem} + 1;
+		
+		# Add first occurence of element to result array.
+		if ($count{$elem} == 1) {
+			push @res, $elem;
+		}
+	}
+	
+	return @res;
+}
+
