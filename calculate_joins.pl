@@ -1,12 +1,9 @@
 #!/usr/bin/perl
-# Alembic - contig assembly tool
+# Alembic - calculate_joins - contig assembly tool
 # v. 1.0
 #
 # version history
-# 1.03 - replace singleton and duplicates inline
-# 1.02 - remove all queries with repeated contigs
-# 1.01 - check for exactly two contigs per query
-# 1.0  - initial version
+# 1.0 - release candidate
 #
 # The program takes input from STDIN
 # and outputs results on STDOUT.
@@ -47,10 +44,6 @@
 # pragmas
 use strict;
 
-# modules
-use List::Util qw(min max);
-use List::MoreUtils qw(uniq);
-
 ##### MAIN BEGIN
 
 my @file_data;
@@ -76,7 +69,7 @@ chomp(@file_data = <>);
 
 # Get list of queries from file data (first column).
 @query_lines = map { (split(/\s+/, $_))[0] } @file_data;
-@queries = uniq @query_lines;
+@queries = uniq(\@query_lines);
 
 # Print output header.
 @header_array = ("query","contig","min-start","max-start","min-stop","max-stop","orientation");
@@ -136,7 +129,7 @@ sub doQuery {
 
 	# Get list of contigs in this query.
 	my @contig_lines = map { (split(/\s+/, $_))[1] } @query_lines;
-	my @contigs = uniq @contig_lines;
+	my @contigs = uniq(\@contig_lines);
 	
 	# Only  process if there are exactly two contigs.
 	# (max index of @contigs is 1)
@@ -181,15 +174,15 @@ sub doContig {
 	@contig_starts = map { (split(/\s+/, $_))[8] } @contig_lines;
 	
 	# Determine contig start min and max values.
-	$start_min = min @contig_starts;
-	$start_max = max @contig_starts;
+	$start_min = min(@contig_starts);
+	$start_max = max(@contig_starts);
 	
 	# Extract contig stops (10'th column).
 	@contig_stops = map { (split(/\s+/, $_))[9] } @contig_lines;
 
 	# Determine contig stop min and max values.
-	$stop_min = min @contig_stops;
-	$stop_max = max @contig_stops;
+	$stop_min = min(@contig_stops);
+	$stop_max = max(@contig_stops);
 	
 	# Determine contig direction.
 	if ($start_min <= $stop_min) {
@@ -205,16 +198,18 @@ sub doContig {
 	return $result_string;
 }
 
-# singles - returns a list of array elements that appear once.
+# singles - returns a list of array elements that appear once
 sub singles {
 	my @arr = @{$_[0]};
 	my %count;
 	my @res;
 	
+	# Create hash of count of each element.
 	foreach my $elem (@arr) {
 		$count{$elem} = $count{$elem} + 1;
 	}
 	
+	# Construct list of elements with count = 1.
 	foreach (keys %count) {
 		if ($count{$_} == 1) {
 			push @res, $_;
@@ -224,16 +219,18 @@ sub singles {
 	return @res;
 }
 
-# multiples - returns a list of array elements that appear more than once.
+# multiples - returns a list of array elements that appear more than once
 sub multiples {
 	my @arr = @{$_[0]};
 	my %count;
 	my @res;
 	
+	# Create hash of count of each element.
 	foreach my $elem (@arr) {
 		$count{$elem} = $count{$elem} + 1;
 	}
 	
+	# Construct list of elements with count > 1.
 	foreach (keys %count) {
 		if ($count{$_} > 1) {
 			push @res, $_;
@@ -241,4 +238,68 @@ sub multiples {
 	}
 	
 	return @res;
+}
+
+# uniq - returns a list of unique array elements
+sub uniq {
+	my @arr = @{$_[0]};
+	my %count;
+	my @res;
+	
+	# Create result array of unique array elements.
+	foreach my $elem (@arr) {
+		# Keep count of times this element has appeared.
+		$count{$elem} = $count{$elem} + 1;
+		
+		# Add first occurence of element to result array.
+		if ($count{$elem} == 1) {
+			push @res, $elem;
+		}
+	}
+	
+	return @res;
+}
+
+# min - returns minimum value from array elements
+sub min {
+	my @arr = @_;
+	my $arrlen = scalar @arr;
+	my $minval;
+	
+	# If array is not empty, loop through to find minimum.
+	if ($arrlen > 0) {
+		my $minval = @arr[0];
+		foreach (@arr) {
+			if ($_ < $minval) {
+				$minval = $_;
+			}
+		}
+		return $minval;
+		
+	} else {
+		# Array is empty, minimum is undefined.
+		return;
+	}
+}
+
+# max - returns maximum value from array elements
+sub max {
+	my @arr = @_;
+	my $arrlen = scalar @arr;
+	my $maxval;
+	
+	# If array is not empty, loop through to find maximum.
+	if ($arrlen > 0) {
+		my $maxval = @arr[0];
+		foreach (@arr) {
+			if ($_ > $maxval) {
+				$maxval = $_;
+			}
+		}
+		return $maxval;
+		
+	} else {
+		# Array is empty, maximum is undefined.
+		return;
+	}
 }
