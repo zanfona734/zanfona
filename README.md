@@ -1,7 +1,7 @@
-# Alembic
+# Zanfona
 <b><h2>A genome assembly finishing tool</h2></b>
 <p>
-Alembic is a genome finishing tool used to make additional joins and calculate gaps and overlaps based on one or more reference genomes simultaneously. It uses an iterative pairing approach which does not assume that related species have identical sequence structure.  <p>
+Zanfona is a genome finishing tool used to make additional joins and calculate gaps and overlaps based on one or more reference genomes simultaneously. It uses an iterative pairing approach which does not assume that related species have identical sequence structure.  <p>
 Alembic also does not require a high-quality genome assembly to use a a reference.  It can be used on a group of pre-assemblies of related species, each acting as a reference genome for the others.
 
 <b>Getting Started:</b>
