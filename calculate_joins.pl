@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Alembic - calculate_joins - contig assembly tool
+# Zanfona - calculate_joins - contig assembly tool
 # v. 1.0
 #
 # version history
