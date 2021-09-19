@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Alembic - calculate_gap_length - contig distance calculator
+# Zanfona - calculate_gap_length - contig distance calculator
 # v. 1.0
 #
 # version history
