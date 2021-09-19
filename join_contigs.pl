@@ -1,6 +1,6 @@
 #!/usr/bin/perl
-# Alembic - join_contigs - final step
-# v. 0.7 development
+# Zanfona - join_contigs - final step
+# v. 1.0 development
 #
 # Development copy, not for distribution.
 
